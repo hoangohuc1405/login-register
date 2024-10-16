@@ -9,6 +9,21 @@ const baseAxios = async (method, url, data = null, customHeaders = {}) => {
     try {
         const token = localStorage.getItem('token');
 
+        // const config = {
+        //     baseURL: 'http://localhost:3000',
+        //     method: method,
+        //     url: url,
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization: token ? `Bearer ${token}` : '',
+        //         ...customHeaders
+        //     },
+        //     data: data,
+        //     timeout: 10000
+        // };
+        // console.log(config)
+        // const response = await axios(config);
+        // return response.data;
         const config = {
             baseURL: 'http://localhost:3000',
             method: method,
@@ -18,12 +33,14 @@ const baseAxios = async (method, url, data = null, customHeaders = {}) => {
                 Authorization: token ? `Bearer ${token}` : '',
                 ...customHeaders
             },
-            data: data,
             timeout: 10000
         };
+        if(data) {
+            config.data = data
+        }
         console.log(config)
         const response = await axios(config);
-        return response.data;
+        return response.data
 
     } catch (error) {
         if (error.response) {

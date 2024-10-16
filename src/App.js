@@ -5,15 +5,19 @@ import { CreateProduct } from "./products/CreateProduct";
 import { EditProduct } from "./products/EditProduct";
 import { Register } from "./users/Register";
 import {Login} from '../src/users/Login'
+import { useContext } from "react";
+import { UserContext } from "./useContext/useContext";
 
 
 function App() {
-  const token = localStorage.getItem("token")
+
+  const {user} = useContext(UserContext)
+  
   return (
     <>
       <Routes>
         {
-        token ?
+        user ?
           <>
             <Route path="" element={<Main />}>
               <Route path="home" element={<ListProduct />} />
